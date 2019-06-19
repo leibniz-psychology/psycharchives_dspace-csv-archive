@@ -15,6 +15,7 @@ class Item:
         self.delimiter = delimiter
         self._attributes = {}
         self.files = ""
+        self.collections = ""
 
     """
     Get a dict of all attributes.
@@ -28,9 +29,10 @@ class Item:
     def setAttribute(self, attribute, value):
         if attribute == "files":
             self.files = value
+        elif attribute == "collections":
+            self.collections = value
         else:
             self._attributes[attribute] = value
-
     """
     Get an attribute value. 
     """
@@ -66,6 +68,19 @@ class Item:
             file = file_name.strip()
             values.append(file)
         return values
+
+
+    """
+    Get the collection(s) for the individual items 
+    """
+    def getCollections(self):
+        values = []
+        collections = self.collections.split(self.delimiter)
+        for index, collection_name in enumerate(collections):
+            collection = os.path.basename(collection_name).strip()
+            values.append(collection)
+        return values
+
 
     """
     Get all the used schemas.

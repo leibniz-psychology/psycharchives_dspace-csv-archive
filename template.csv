@@ -1,3 +1,3 @@
-files, dc.title[en], dc.metadata1, dc.metadata2, dc.metadata3, zpid.identifier.dfk, wgl.wglsubject, wgl.wglcontributor
-test.pdf,Mein toller Titel, Metadaten1, Metadaten2, Metadaten3, 1234567, Psycho, ZPID
-test2.pdf,Mein toller Titel2, Metadaten1, Metadaten2, Metadaten3, 1234567,, ZPID
+files,collections, dc.title[en], dc.metadata1, dc.metadata2, dc.metadata3, zpid.identifier.dfk, wgl.wglsubject, wgl.wglcontributor
+test.pdf,123456789,Mein toller Titel, Metadaten1, Metadaten2, Metadaten3, 1234567, Psycho, ZPID
+test2.pdf,1234567889,Mein toller Titel2, Metadaten1, Metadaten2, Metadaten3, 1234567,, ZPID
