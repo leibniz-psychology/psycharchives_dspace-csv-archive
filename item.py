@@ -6,8 +6,7 @@ An item has a collection of files (aka Bitstreams) and a number of metadata name
 
 import os
 import re
-import html
-
+import cgi
 
 class Item:
     delimiter = '||'
@@ -69,12 +68,29 @@ class Item:
         return values
 
     """
-    Returns an XML represenatation of the item.
+    Get all the used schemas.
     """
-    def toXML(self):
+    def getUsedSchemas(self):
+        values = []
+        for index, value in self.getAttributes().iteritems():
+            schema = self.getSchema(index)
+            if schema in values:
+                continue
+            else:
+                values.append(schema)
+
+        return values
+
+    """
+    Returns an XML represenatation of the item.
+    Extended for multiple namespaces/schemas
+    """
+    def toXML(self, mdschema):
         output = ""
-        output += "<dublin_core>" + os.linesep
-        for index, value in self.getAttributes().items():
+        output += "<dublin_core schema=\"" + mdschema + "\">" + os.linesep
+        for index, value in self.getAttributes().iteritems():
+            if self.getSchema(index) != mdschema:
+                continue
             tag_open = self.getOpenAttributeTag(index)
             tag_close = "</dcvalue>" + os.linesep
 
@@ -85,7 +101,7 @@ class Item:
                     continue
 
                 output += tag_open
-                output += html.escape(val.strip(), quote=True)
+                output += cgi.escape(val.strip(), quote=True)
                 output += tag_close
         output += "</dublin_core>" + os.linesep
 
@@ -108,10 +124,10 @@ class Item:
     eg 'language="en"'
     """
     def getAttributeLangString(self, attribute):
-        match = re.search('_(\w+)', attribute)
+        match = re.search('\[(\w+)\]', attribute)
 
         if match != None:
-            return ' language="' + html.escape(match.group(1), quote=True) + '" '
+            return ' language="' + cgi.escape(match.group(1), quote=True) + '" '
         else:
             return ''
 
@@ -119,7 +135,7 @@ class Item:
     Strip the language bit off of a metadata attribute.
     """
     def stripAttributeLang(self, attribute):
-        attribs = attribute.split('_')
+        attribs = attribute.split('[')
         return attribs[0]
 
     """
@@ -131,7 +147,7 @@ class Item:
         attribs = attribute.split('.')
 
         if len(attribs) >= 2:
-            return ' element="' + html.escape(attribs[1], quote=True) + '" '
+            return ' element="' + cgi.escape(attribs[1], quote=True) + '" '
         else:
             return ''
 
@@ -140,10 +156,16 @@ class Item:
     eg 'qualifier="author"'
     """
     def getAttributeQualifierString(self, attribute):
-        attribute = self.stripAttributeLang(attribute)
+        #attribute = self.stripAttributeLang(attribute)
         attribs = attribute.split('.')
 
         if len(attribs) >= 3:
-            return ' qualifier="' + html.escape(attribs[2], quote=True) + '" '
+            return ' qualifier="' + cgi.escape(attribs[2], quote=True) + '" '
         else:
             return ''
+
+    def getSchema(self, attribute):
+        #attribute = self.stripAttributeLang(attribute)
+        attribs = attribute.split('.')
+
+        return cgi.escape(attribs[0].strip('_'), quote=True)
