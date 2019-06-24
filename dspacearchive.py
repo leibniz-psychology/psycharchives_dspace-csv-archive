@@ -91,7 +91,6 @@ class DspaceArchive:
         contents_file = open(os.path.join(item_path, 'contents'), "w")
 
         files = item.getFiles()
-        print(files)
         for index, file_name in enumerate(files):
             contents_file.write(file_name)
             if index < len(files):
@@ -106,7 +105,6 @@ class DspaceArchive:
         collections_file = open(os.path.join(item_path, 'collections'), "w")
 
         collections = item.getCollections()
-        print (collections)
         for index, collection_name in enumerate(collections):
             collections_file.write(collection_name)
             if index < len(collections):

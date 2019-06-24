@@ -77,7 +77,7 @@ class Item:
         values = []
         collections = self.collections.split(self.delimiter)
         for index, collection_name in enumerate(collections):
-            collection = os.path.basename(collection_name).strip()
+            collection = collection_name.strip()
             values.append(collection)
         return values
 
@@ -171,7 +171,7 @@ class Item:
     eg 'qualifier="author"'
     """
     def getAttributeQualifierString(self, attribute):
-        #attribute = self.stripAttributeLang(attribute)
+        attribute = self.stripAttributeLang(attribute)
         attribs = attribute.split('.')
 
         if len(attribs) >= 3:
