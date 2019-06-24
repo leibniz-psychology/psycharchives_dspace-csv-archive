@@ -23,7 +23,7 @@ class DspaceArchive:
         self.input_base_path = os.path.dirname(input_path)
 
         with open(self.input_path, 'r') as f:
-            reader = csv.reader(f)
+            reader = csv.reader(self.strip_csv_comments(f))
 
             header = next(reader)
 
@@ -76,6 +76,15 @@ class DspaceArchive:
     """
     def zip(self, dir = None):
         pass
+    """
+    Helper function to strip comments of the csv input file
+    """
+    def strip_csv_comments(self, file):
+        for row in file:
+            raw = row.split('#')[0].strip()
+            if raw:
+                yield raw
+
 
     """
     Create a directory if it doesn't already exist.
