@@ -7,7 +7,7 @@ Simple Archive format.
 
 import os, csv
 from itemfactory import ItemFactory
-from shutil import copy
+from shutil import copy, make_archive
 
 class DspaceArchive:
 
@@ -74,8 +74,9 @@ class DspaceArchive:
     """
     Create a zip file of the archive. 
     """
-    def zip(self, dir = None):
-        pass
+    def zip(self, output_filename, dir_name = None):
+        make_archive(output_filename, 'zip', dir_name)
+
     """
     Helper function to strip comments of the csv input file
     """
