@@ -10,3 +10,7 @@ venv
 test.pdf
 test2.pdf
 test3.pdf
+build
+dist
+test1.pdf
+dspace-csv-archive.spec

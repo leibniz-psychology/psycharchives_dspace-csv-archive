@@ -87,7 +87,7 @@ class Item:
     """
     def getUsedSchemas(self):
         values = []
-        for index, value in self.getAttributes().iteritems():
+        for index, value in iter(self.getAttributes().items()):
             schema = self.getSchema(index)
             if schema in values:
                 continue
@@ -103,7 +103,8 @@ class Item:
     def toXML(self, mdschema):
         output = ""
         output += "<dublin_core schema=\"" + mdschema + "\">" + os.linesep
-        for index, value in self.getAttributes().iteritems():
+        #for index, value in self.getAttributes().iteritems():
+        for index, value in iter(self.getAttributes().items()):
             if self.getSchema(index) != mdschema:
                 continue
             tag_open = self.getOpenAttributeTag(index)
