@@ -13,4 +13,4 @@ input_base_path = os.path.dirname(input_file)
 
 archive = DspaceArchive(input_file)
 archive.write("./output")
-
+archive.zip("output", "./output")
