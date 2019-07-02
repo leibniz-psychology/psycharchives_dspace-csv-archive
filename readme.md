@@ -6,11 +6,12 @@ Some simple rules:
 -------------------
 * The first row should be your header, which defines the values you're going to provide. 
 * Only one column is mandatory: 'files'. Files can be organized in any way you want, just provide the proper path relative to the CSV file's location.
+* This fork supports the assignment of collections to items. You need the handle of the respective collection. Have a look at the file `template.csv` for examples. 
 * Add one column for each metadata element (eg: dc.title)
 * The order of the columns does not matter.
 * Only dublin core metadata elements are supported (for now).
 * Use the fully qualified dublin core name for each element (eg dc.contributor.author).
-* Languages can be specified by leaving a space after the element name and then listing the language.
+* Languages can be specified with the language label in brackets after the element (see template.csv for examples) ~~leaving a space after the element name and then listing the language.~~
 * Separate multiple values for an element by double-pipes (||).
 * If your metadata value has a comma in it, put some quotes around it. Eg: "Roses are red, violets are blue".
 
@@ -19,6 +20,7 @@ An Example:
 <table>
 	<tr>
 		<th>files</th>
+		<th>collections</th>
 		<th>dc.title en</th>
 		<th>dc.contributor.author en</th>
 		<th>dc.subject</th>
@@ -26,6 +28,7 @@ An Example:
 	</tr>
 	<tr>
 		<td>something1.pdf||something_else1.pdf</td>
+		<td>123456789/11||123456789/12</td>
 		<td>title 1</td>
 		<td>author 1</td>
 		<td>subject 1</td>
@@ -33,6 +36,7 @@ An Example:
 	</tr>
 	<tr>
 		<td>directory/something2.pdf</td>
+		<td>123456789/1</td>
 		<td>"title 2, with comma"</td>
 		<td>author 2a||author 2b</td>
 		<td>subject 2</td>
@@ -68,3 +72,10 @@ The `--mapfile` argument is particularly important, and the file that gets
 generated should be kept along with the rest of the source directory. This
 file is required for deleting or modifying the imported files using the
 command-line tools.
+
+## .exe file
+
+The directory `dist` contains a Windows executable. This was created with [PyInstaller](https://www.pyinstaller.org/) and the following command:
+    
+    pyinstaller -F dspace-csv-archive.py
+     
