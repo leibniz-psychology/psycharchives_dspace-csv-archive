@@ -23,7 +23,7 @@ class DspaceArchive:
         self.input_base_path = os.path.dirname(input_path)
 
         with open(self.input_path, 'r') as f:
-            reader = csv.reader(self.strip_csv_comments(f))
+            reader = csv.reader(self.strip_csv_comments(f), delimiter=";")
 
             header = next(reader)
 

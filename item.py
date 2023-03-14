@@ -6,7 +6,7 @@ An item has a collection of files (aka Bitstreams) and a number of metadata name
 
 import os
 import re
-import cgi
+import html
 
 class Item:
     delimiter = '||'
@@ -117,7 +117,7 @@ class Item:
                     continue
 
                 output += tag_open
-                output += cgi.escape(val.strip(), quote=True)
+                output += html.escape(val.strip(), quote=True)
                 output += tag_close
         output += "</dublin_core>" + os.linesep
 
@@ -143,7 +143,7 @@ class Item:
         match = re.search('\[(\w+)\]', attribute)
 
         if match != None:
-            return ' language="' + cgi.escape(match.group(1), quote=True) + '" '
+            return ' language="' + html.escape(match.group(1), quote=True) + '" '
         else:
             return ''
 
@@ -163,7 +163,7 @@ class Item:
         attribs = attribute.split('.')
 
         if len(attribs) >= 2:
-            return ' element="' + cgi.escape(attribs[1], quote=True) + '" '
+            return ' element="' + html.escape(attribs[1], quote=True) + '" '
         else:
             return ''
 
@@ -176,7 +176,7 @@ class Item:
         attribs = attribute.split('.')
 
         if len(attribs) >= 3:
-            return ' qualifier="' + cgi.escape(attribs[2], quote=True) + '" '
+            return ' qualifier="' + html.escape(attribs[2], quote=True) + '" '
         else:
             return ''
 
@@ -184,4 +184,4 @@ class Item:
         #attribute = self.stripAttributeLang(attribute)
         attribs = attribute.split('.')
 
-        return cgi.escape(attribs[0].strip('_'), quote=True)
+        return html.escape(attribs[0].strip('_'), quote=True)
