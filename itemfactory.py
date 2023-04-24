@@ -21,6 +21,8 @@ class ItemFactory:
 			if values == None:
 				item.setAttribute(column, None)
 			else:
+				if index == 0:
+					column = "files"
 				item.setAttribute(column, values[index])
 
 		return item
