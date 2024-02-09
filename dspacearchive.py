@@ -58,6 +58,7 @@ class DspaceArchive:
             name = "item_%03d" % (int(index) + 1)
             item_path = os.path.join(dir, name)
             self.create_directory(item_path)
+            print("====== Writing Item: ", item_path, " ======")
 
             #contents file
             self.writeContentsFile(item, item_path)
